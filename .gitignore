@@ -2,5 +2,5 @@
 .env
 node_modules
 js
-lib
+.history
 yarn-error.log

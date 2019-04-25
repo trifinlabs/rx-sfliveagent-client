@@ -30,6 +30,8 @@ const messages = (api: Api) => defer(() =>
   from(api.messages()).pipe(
     switchMap((response) => response ? response.messages : []),
     tap((message) => !api.visitor.id && message.type === 'ChatRequestSuccess' ? api.visitor.id = message.message.visitorId : undefined),
+    catchError((error: Error) => of(error)),
+    filter((message) => !(message instanceof Error)),
   ))
   .pipe(repeat());
 
